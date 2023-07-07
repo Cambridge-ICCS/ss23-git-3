@@ -19,7 +19,7 @@ tokens.
   * Special functions: `p` (pops number on top of stack and prints)
   * Numbers are parsed as *floats*.
 
-At input end, the top of the stack is popped is printed.
+At input end, the top of the stack is popped and printed.
 
 Binary operators work by popping two arguments off the stack, running a
 calculation, and pushing the result. The top of the stack becomes the left
