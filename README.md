@@ -1,15 +1,47 @@
-# Python RPN calculator
+# Reverse Polish notation calculator in Python
+Reverse Polish notation (RPN) is a postfix expression notation. Unlike the infix
+notation taught in schools, RPN defines an unambiguous evaluation strategy
+without brackets. This makes it especially simple to implement an RPN calculator
+-- all you need is a small amount of parsing code, and a stack (a first in,
+first out data structure).
 
-Usage:
+## Usage
+From the `rpn-calc/src` directory:
 
 ```
 python rpn_calc.py
 ```
 
-It will read from `stdin` breaking the input into space-separated tokens.  The
-tokens are currently `"+", "-", "*", "/", "p"`.  The "p" token will pop the top
-of the stack and print it.  Any other token will be parsed as a floating point
-number.  At input end, the top of the stack will be popped and printed.
+Expressions are read from `stdin`. Input strings are broken into space-separated
+tokens.
+
+  * Binary operators: `+`, `-`, `*`, `/`
+  * Special functions: `p` (pops number on top of stack and prints)
+  * Numbers are parsed as *floats*.
+
+At input end, the top of the stack is popped is printed.
+
+Binary operators work by popping two arguments off the stack, running a
+calculation, and pushing the result. The top of the stack becomes the left
+operand, and the element one below the top becomes the right operand. See below
+for an example.
+
+### Example
+The input string `1 2 +` processed as follows:
+
+  * `1`: push `1`
+  * `2`: push `2`
+  * `+`: pop `2`, pop `1`, push `2 + 1`
+
+Here's an example shell session:
+
+```
+$ cd rpn-calc/src
+$ python rpn_calc.py << EOM
+1 2 +
+EOM
+3.0
+```
 
 ## Installation (including `pytest` for testing)
 ```
@@ -18,13 +50,5 @@ cd ss23-git
 python -m venv venv
 source venv/bin/activate
 pip install pytest
-cd rpn_calc/src
-```
-
-## Example
-```
-python rpn_calc.py << EOM
-1 2 +
-EOM
-3.0
+cd rpn-calc/src
 ```
